@@ -1,0 +1,50 @@
+import React from "react";
+import { Typography, Stepper, StepLabel, Step } from "@material-ui/core";
+import {
+  BankOutlined,
+  CarOutlined,
+  CheckSquareOutlined,
+} from "@ant-design/icons";
+
+export const StatusShipping = ({ activeStep }) => {
+  const steps = [
+    {
+      label: <Typography>Shipping Details</Typography>,
+      icon: <CarOutlined />,
+    },
+    {
+      label: <Typography>Confirm Order</Typography>,
+      icon: <CheckSquareOutlined />,
+    },
+    {
+      label: <Typography>Payment</Typography>,
+      icon: <BankOutlined />,
+    },
+  ];
+
+  const stepStyles = {
+    boxSizing: "border-box",
+  };
+  return (
+    <>
+      <Stepper alternativeLabel activeStep={activeStep} style={stepStyles}>
+        {steps.map((item, index) => (
+          <Step
+            key={index}
+            active={activeStep === index ? true : false}
+            completed={activeStep >= index ? true : false}
+          >
+            <StepLabel
+              style={{
+                color: activeStep >= index ? "#3BB77E" : "rgba(0, 0, 0, 0.649)",
+              }}
+              icon={item.icon}
+            >
+              {item.label}
+            </StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </>
+  );
+};

@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    body{
+        @apply bg-dark_light font-body;
+    }
+}
+
+@layer components{
+    .page-container{
+        max-width: 1280px;
+        @apply mx-auto;
+    }
+    .product-list .swiper-slide{
+        width: 300px;
+
+    }
+    
+}
