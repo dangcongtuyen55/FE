@@ -28,7 +28,7 @@ export default function Cart() {
     if (stock <= quantity) {
       return;
     }
-    dispatch(addToCart(id, newQty));
+    dispatch(addToCart(id, { quantity: newQty }));
   };
 
   const decreaseQuantity = (id, quantity) => {
@@ -36,7 +36,7 @@ export default function Cart() {
     if (1 >= quantity) {
       return;
     }
-    dispatch(addToCart(id, newQty));
+    dispatch(addToCart(id, { quantity: newQty }));
   };
   const deleteItemFromCart = (id) => {
     dispatch(removeItemsFromCart(id));
@@ -45,7 +45,6 @@ export default function Cart() {
   const checkOutHandle = () => {
     navigate("/login?redirect=shipping");
   };
-
 
   return (
     <div className="container mx-auto mt-10">
@@ -124,12 +123,8 @@ export default function Cart() {
                     {item.price}
                   </div>
                   <div className="text-center w-1/5 font-semibold text-sm">
-                    
-                    {
-                      item.quantity * item.price
-                    }
+                    {item.quantity * item.price}
                   </div>
-                  
                 </div>
               ))}
             </div>
@@ -156,14 +151,13 @@ export default function Cart() {
               <span>Tổng tiền thanh toán</span>
               <span>
                 {`₫${cartItems.reduce(
-                  (acc, item) => acc + (item.quantity * item.price),
+                  (acc, item) => acc + item.quantity * item.price,
                   0
                 )}`}
 
                 {/* {
                   (cartItems.current_price === 0 || cartItems.current_price ==="")?(subTotalNoPromotion):(subTotalHavePromotion)
                 } */}
-                
               </span>
             </div>
             <button

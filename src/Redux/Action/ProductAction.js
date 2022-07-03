@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
@@ -35,3 +38,33 @@ export const litsProductDetail = (id) => async (dispatch) => {
     });
   }
 };
+
+//PRODUCT CREATE REVIEWS
+
+export const createOrderDetails =
+  (id, review) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
+      const {
+        userLogin: { user },
+      } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      await axios.post(`/api/v1/review/${id}`, review, config);
+
+      dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload: message,
+      });
+    }
+  };

@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
+  productCreateReviewReducer,
   productDetailReducer,
   productListReducer,
 } from "./Reducers/ProductReducer";
@@ -14,7 +15,11 @@ import {
   userRegisterReducer,
 } from "./Reducers/UserReducer";
 import { cartReducer } from "./Reducers/CartReducer";
-import { orderCreateReducer } from "./Reducers/OrderReducer";
+import {
+  myOrdersReducer,
+  orderCreateReducer,
+  orderDetailsReducer,
+} from "./Reducers/OrderReducer";
 const persistConfig = {
   key: "reducer",
   storage: storage,
@@ -23,12 +28,15 @@ const persistConfig = {
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailReducer,
+  createReview: productCreateReviewReducer,
   bannerList: bannerListReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetail: userDetailReducer,
   cart: cartReducer,
-  orderCreate : orderCreateReducer
+  orderCreate: orderCreateReducer,
+  myOrder: myOrdersReducer,
+  orderDetails: orderDetailsReducer,
 });
 
 const cartItemsFromLocalStorage = localStorage.getItem("cartItems")
@@ -36,7 +44,7 @@ const cartItemsFromLocalStorage = localStorage.getItem("cartItems")
   : [];
 const userFromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
-  : null;
+  : {};
 const shippingInfoFromLocalStorage = localStorage.getItem("shippingInfo")
   ? JSON.parse(localStorage.getItem("shippingInfo"))
   : {};

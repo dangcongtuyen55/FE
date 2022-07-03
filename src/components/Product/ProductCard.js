@@ -32,7 +32,7 @@ const ProductCard = ({ product }) => {
             {product.name}
           </h3>
           <div className="flex items-center justify-between text-sm opacity-50 mb-5 text-light">
-            {product.price }
+            {product.price}
           </div>
           <div className="flex items-center justify-between text-sm opacity-50 mb-5 text-light">
             <ReactStars {...options} />

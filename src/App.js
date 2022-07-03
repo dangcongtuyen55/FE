@@ -22,6 +22,8 @@ import { Order } from "./components/Cart/Order";
 import { RequireAuth } from "./config/RequireAuth";
 import { Payment } from "./components/Cart/Payment";
 import { Success } from "./components/Cart/Success";
+import { MyOrder } from "./components/Order/MyOrder";
+import { OrderDetail } from "./components/Order/OrderDetail";
 
 const App = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -48,6 +50,8 @@ const App = () => {
           <Route path="/payment" element={<Payment />} />
           <Route path="/success" element={<Success />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/orders" element={<MyOrder />} />
+          <Route path="/order/:id" element={<OrderDetail />} />
 
           <Route path="*" element={<Error />} />
         </Routes>

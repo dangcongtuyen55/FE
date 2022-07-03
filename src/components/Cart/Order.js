@@ -1,4 +1,8 @@
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import {
+  ExclamationCircleOutlined,
+  MailOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +33,7 @@ export const Order = () => {
   useEffect(() => {
     if (success) {
       navigate("/success");
-      dispatch({ type: ORDER_CREATE_RESET });
+      // dispatch({ type: ORDER_CREATE_RESET });
     }
   }, [navigate, dispatch, success, order]);
 
@@ -38,7 +42,10 @@ export const Order = () => {
     dispatch(
       createOrder({
         orderItems: cartItems,
-        shippingInfo: cartItems.shippingInfo,
+        shippingInfo: shippingInfo,
+        Subtotal,
+        shippingFee,
+        Amount,
       })
     );
   };
@@ -201,29 +208,16 @@ export const Order = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-center  md:justify-start items-center space-x-4 py-4 border-b border-gray-200 w-full">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5Z"
-                      stroke="#1F2937"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M3 7L12 13L21 7"
-                      stroke="#1F2937"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                <div className="flex justify-center  md:justify-start items-center space-x-4 py-4  w-full">
+                  <MailOutlined />
                   <p className="cursor-pointer text-sm leading-5 text-gray-800">
                     {user.email}
+                  </p>
+                </div>
+                <div className="flex justify-center  md:justify-start items-center space-x-4 py-4 border-b border-gray-200 w-full">
+                  <PhoneOutlined />
+                  <p className="cursor-pointer text-sm leading-5 text-gray-800">
+                    {shippingInfo.phone}
                   </p>
                 </div>
               </div>
@@ -236,6 +230,9 @@ export const Order = () => {
                     <p className="w-48 lg:w-full xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
                       {shippingInfo.address}
                     </p>
+                    {/* <p className="w-48 lg:w-full xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
+                      {order.paidAt}
+                    </p> */}
                   </div>
                 </div>
                 <div className="flex w-full justify-center items-center md:justify-start md:items-start">

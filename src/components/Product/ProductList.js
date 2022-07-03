@@ -31,7 +31,7 @@ const ProductList = () => {
         {products.map((product) => {
           return (
             <SwiperSlide>
-              <ProductCard product={product} key={product._id} />;
+              <ProductCard product={product} key={product._id} />
             </SwiperSlide>
           );
         })}
