@@ -396,7 +396,7 @@ const Header = () => {
                           </ul>
                         )}
                         <div className="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out">
-                          Xin chào, {user.userName}
+                          Xin chào, {user.name}
                         </div>
                         <div className="ml-2 text-gray-600">
                           <svg

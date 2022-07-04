@@ -40,29 +40,6 @@ export const cartReducer = (
         };
       }
 
-    case PLUS_QUANTITY:
-      const temp = action.payload;
-      console.log("c" + temp);
-
-      const isItemExist = state.cartItems.find(
-        (i) => i.product === temp.product
-      );
-      console.log("a" + isItemExist);
-
-      if (isItemExist) {
-        return {
-          ...state,
-          cartItems: state.cartItems.map((i) =>
-            i.product === isItemExist.product ? temp : i
-          ),
-        };
-      } else {
-        return {
-          ...state,
-          cartItems: [...state.cartItems, temp],
-        };
-      }
-
     case CART_REMOVE_ITEM:
       return {
         ...state,

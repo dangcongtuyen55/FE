@@ -15,6 +15,8 @@ export const Order = () => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const userLogin = useSelector((state) => state.userLogin);
   const { user } = userLogin;
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
   const navigate = useNavigate();
   const Subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -28,8 +30,7 @@ export const Order = () => {
   const shippingFee = Subtotal > 25000 ? 0 : 32000;
 
   const Amount = Subtotal + shippingFee;
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
+
   useEffect(() => {
     if (success) {
       navigate("/success");
@@ -194,7 +195,7 @@ export const Order = () => {
           </div>
           <div className="bg-gray-50 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col ">
             <h3 className="text-xl font-semibold leading-5 text-gray-800">
-              Thông tin của {user.userName}
+              Thông tin của bạn
             </h3>
             <div className="flex  flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0 ">
               <div className="flex flex-col justify-start items-start flex-shrink-0">
@@ -202,7 +203,7 @@ export const Order = () => {
                   {/* <img src="https://i.ibb.co/5TSg7f6/Rectangle-18.png" alt="avatar" /> */}
                   <div className=" flex justify-start items-start flex-col space-y-2">
                     <p className="text-base font-semibold leading-4 text-left text-gray-800">
-                      {user.userName}
+                      {user.name}
                     </p>
                     {/* <p className="text-sm leading-5 text-gray-600">10 Previous Orders</p> */}
                   </div>
