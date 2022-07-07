@@ -379,7 +379,9 @@ export const ProductDetail = () => {
                 ))}
             </div>
           ) : (
-            <p className="noReviews">No Reviews Yet</p>
+            <div className="w-80">
+              <Alert severity="error">Chưa có đánh giá</Alert>
+            </div>
           )}
         </div>
       )}

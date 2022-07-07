@@ -24,6 +24,10 @@ import { Payment } from "./components/Cart/Payment";
 import { Success } from "./components/Cart/Success";
 import { MyOrder } from "./components/Order/MyOrder";
 import { OrderDetail } from "./components/Order/OrderDetail";
+import { AllProduct } from "./components/Product/AllProduct";
+import { Search } from "./components/Product/Search";
+import { UpdatePassword } from "./pages/UpdatePassword";
+import { UpdateProfile } from "./pages/UpdateProfile";
 
 const App = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -39,11 +43,17 @@ const App = () => {
       <Fragment>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/search/:keyword" element={<Home />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/update-password" element={<UpdatePassword />} />
+          <Route path="/profile/update" element={<UpdateProfile />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/list-product" element={<ProductList />} />
+          <Route path="/products" element={<AllProduct />} />
+          <Route path="/products/:keyword" element={<AllProduct />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login/shipping" element={<Shipping />} />
           <Route path="/order" element={<Order />} />

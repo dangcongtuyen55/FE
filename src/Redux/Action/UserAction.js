@@ -1,9 +1,12 @@
 import axios from "axios";
 import {
+  UPDATE_PASSWORD_FAIL,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PROFILE_FAIL,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
   USER_CURRENT,
-  USER_CURRENT_FAIL,
-  USER_CURRENT_REQUEST,
-  USER_CURRENT_SUCCESS,
   USER_DETAIL_FAIL,
   USER_DETAIL_REQUEST,
   USER_DETAIL_SUCCESS,
@@ -40,26 +43,26 @@ export const login = (email, password, role) => async (dispatch) => {
   }
 };
 
-export const userCurrent = () => async (dispatch) => {
-  try {
-    const token = localStorage.getItem("user");
-    const options = {
-      method: "GET",
-      url: "/api/v1/auth/",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await axios(options);
-    if (response.data.user) {
-      const { userName } = response.data.user;
-      dispatch({ type: USER_CURRENT, payload: { userName } });
-    }
-    console.log(response.data.userName);
-  } catch (error) {
-    // console.log(error);
-  }
-};
+// export const userCurrent = () => async (dispatch) => {
+//   try {
+//     const token = localStorage.getItem("user");
+//     const options = {
+//       method: "GET",
+//       url: "/api/v1/auth/",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+//     const response = await axios(options);
+//     if (response.data.user) {
+//       const { userName } = response.data.user;
+//       dispatch({ type: USER_CURRENT, payload: { userName } });
+//     }
+//     console.log(response.data.userName);
+//   } catch (error) {
+//     // console.log(error);
+//   }
+// };
 
 // LOGOUT
 
@@ -100,9 +103,17 @@ export const register = (name, email, password) => async (dispatch) => {
 export const getUserDetail = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DETAIL_REQUEST });
+    const {
+      userLogin: { user },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
 
-    const { data } = await axios.get(`/api/v1/auth/me/`);
-    dispatch({ type: USER_DETAIL_SUCCESS, payload: data.user });
+    const { data } = await axios.get(`/api/v1/auth/me/${id}`, config);
+    dispatch({ type: USER_DETAIL_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -110,6 +121,55 @@ export const getUserDetail = (id) => async (dispatch, getState) => {
         : error.message;
     dispatch({
       type: USER_DETAIL_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const updateProfile = (userData) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: UPDATE_PROFILE_REQUEST });
+
+    const {
+      userLogin: { user },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/v1/auth/me/update/profile`,
+      userData,
+      config
+    );
+
+    dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
+    // localStorage.setItem("userLogin", JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PROFILE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const updatePassword = (password) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data } = await axios.post(`/api/v1/auth/password/update`, config);
+    dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: UPDATE_PASSWORD_FAIL,
       payload: message,
     });
   }

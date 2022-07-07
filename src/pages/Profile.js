@@ -34,12 +34,12 @@ const Profile = () => {
                 <div className="rounded border-gray-300  dark:border-gray-700 border-dashed border-2 h-[150px]">
                   <p className="text-lg  font-bold leading-none uppercase mt-2 ml-2">
                     Thông tin cá nhân &#160;
-                    <Link to="">
+                    <Link to="/profile/update">
                       <EditIcon />
                     </Link>
                   </p>
                   <p className="text-sm  leading-3 text-gray-800 mt-2 ml-2">
-                    {user.userName}
+                    {user.name}
                   </p>
                   <p className="text-sm  leading-3 text-gray-800 mt-2 ml-2">
                     {user.email}

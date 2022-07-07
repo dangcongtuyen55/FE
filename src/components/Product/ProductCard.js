@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
   };
   return (
     <>
-      <div className="product-card w-[200px]  rounded-lg p-3 bg-gray-700 text-black">
+      <div className="product-card w-[200px] h-[320px]  rounded-lg p-3 bg-slate-200 text-black">
         <div>
           <Link
             to={{
@@ -24,23 +24,23 @@ const ProductCard = ({ product }) => {
             <img
               src={product.product_url}
               alt=""
-              className="w-full h-[200px] object-cover rounded-lg mb-5"
+              className="w-full  object-cover rounded-lg mb-5"
             />
           </Link>
 
-          <h3 className=" text-xl font-bold mb-3 text-ellipsis overflow-hidden whitespace-nowrap">
+          <h3 className=" text-sm font-bold mb-3 text-ellipsis overflow-hidden whitespace-nowrap">
             {product.name}
           </h3>
-          <div className="flex items-center justify-between text-sm opacity-50 mb-5 text-light">
+          <div className="flex items-center justify-between text-sm opacity-50 mb-2 text-black">
             {product.price}
           </div>
-          <div className="flex items-center justify-between text-sm opacity-50 mb-5 text-light">
+          <div className="flex items-center justify-between text-sm opacity-50  text-black">
             <ReactStars {...options} />
           </div>
 
-          <button className="py-3 px-6 rounded-lg capitalize bg-black text-white w-full">
+          {/* <button className="py-3 px-6 rounded-lg capitalize bg-black text-white w-full">
             <Link to={`/product/${product._id}`}>Mua ngay</Link>
-          </button>
+          </button> */}
         </div>
       </div>
     </>

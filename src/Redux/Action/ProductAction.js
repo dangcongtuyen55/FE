@@ -12,18 +12,27 @@ import {
 } from "../Constants/ProductConstant";
 
 //LIST PRODUCT
-export const listProduct = () => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get("/api/v1/products");
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+export const listProduct =
+  (keyword = "", currentPage = 1, category) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_REQUEST });
+      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}`;
+      if (category) {
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&category=${category}`;
+      }
+      const { data } = await axios.get(
+        // `/api/v1/products?keyword=${keyword}&page=${currentPage}`
+        link
+      );
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 //PRODUCT DETAIL
 export const litsProductDetail = (id) => async (dispatch) => {
