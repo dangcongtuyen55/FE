@@ -1,35 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-const categories = [
-  "Electronics",
-  "TVs & Appliances",
-  "Men",
-  "Women",
-  "Baby & Kids",
-  "Home & Furniture",
-  "Sports, Books & More",
-  "Flights",
-  "Offer Zone",
-  "Grocery",
-];
+import { listCategory } from "../../Redux/Action/CategoryAction";
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 
 export const MinCatagory = () => {
+  const dispatch = useDispatch();
+  const categoryList = useSelector((state) => state.categoryList);
+  const categories = categoryList;
+  console.log("TCL: MinCatagory -> categories", categories);
+  const [categoryToggle, setCategoryToggle] = useState(true);
+  const [category, setCategory] = useState("");
+  useEffect(() => {
+    dispatch(listCategory());
+  }, [dispatch]);
   return (
     <section className="hidden sm:block bg-white w-full px-2 sm:px-12 overflow-hidden border-b mt-14">
       <div className="flex items-center justify-between p-0.5">
-        {categories.map((el, i) => (
-          <Link
-            to="/products"
-            key={i}
-            className="text-sm p-2 text-gray-800 font-medium hover:text-primary-blue flex items-center gap-0.5 group"
-          >
-            {el}{" "}
-            <span className="text-gray-400 group-hover:text-primary-blue">
-              <ExpandMoreIcon sx={{ fontSize: "16px" }} />
-            </span>
-          </Link>
-        ))}
+        {categoryToggle && (
+          <div className="flex flex-col pb-1">
+            <FormControl>
+              <RadioGroup
+                aria-labelledby="category-radio-buttons-group"
+                onChange={(e) => setCategory(e.target.value)}
+                name="category-radio-buttons"
+                value={category}
+              >
+                <FormControlLabel
+                  value={category}
+                  control={<Radio size="small" />}
+                  label={
+                    <span className="text-sm" key={categories._id}>
+                      {categories.name}
+                    </span>
+                  }
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+        )}
       </div>
     </section>
   );

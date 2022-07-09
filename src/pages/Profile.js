@@ -12,9 +12,9 @@ const Profile = () => {
   const { order } = useSelector((state) => state.orderDetails);
   const { user } = userLogin;
 
-  useEffect(() => {
-    dispatch(getUserDetail("profile"));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUserDetail("profile"));
+  // }, [dispatch]);
 
   return (
     <>

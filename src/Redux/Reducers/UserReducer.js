@@ -58,10 +58,24 @@ export const userDetailReducer = (state = { user: {} }, action) => {
     case USER_DETAIL_REQUEST:
       return { ...state, loading: true };
     case USER_DETAIL_SUCCESS:
-      return { loading: false, user: action.payload };
+      return { ...state, loading: false, isUpdated: action.payload };
     case USER_DETAIL_FAIL:
       return { loading: false, error: action.payload };
     case USER_DETAIL_RESET:
+      return { user: {} };
+    default:
+      return state;
+  }
+};
+export const updatePasswordReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case UPDATE_PASSWORD_REQUEST:
+      return { ...state, loading: true };
+    case UPDATE_PASSWORD_SUCCESS:
+      return { ...state, loading: false, isUpdated: action.payload };
+    case UPDATE_PASSWORD_FAIL:
+      return { loading: false, error: action.payload };
+    case UPDATE_PASSWORD_RESET:
       return { user: {} };
     default:
       return state;
@@ -71,71 +85,9 @@ export const userDetailReducer = (state = { user: {} }, action) => {
 // export const profileReducer = (state = {}, action) => {
 //   switch (action.type) {
 //     case UPDATE_PROFILE_REQUEST:
-//     case UPDATE_PASSWORD_REQUEST:
-//       // case UPDATE_USER_REQUEST:
-//       // case DELETE_USER_REQUEST:
-//       return {
-//         ...state,
-//         loading: true,
-//       };
+//       return { ...state, loading: true };
 //     case UPDATE_PROFILE_SUCCESS:
-//       // case UPDATE_PASSWORD_SUCCESS:
-//       // case UPDATE_USER_SUCCESS:
-//       return {
-//         ...state,
-//         loading: false,
-//         isUpdated: action.payload,
-//       };
-
-//     // case DELETE_USER_SUCCESS:
-//     //   return {
-//     //     ...state,
-//     //     loading: false,
-//     //     isDeleted: action.payload.success,
-//     //     message: action.payload.message,
-//     //   };
-
-//     case UPDATE_PROFILE_FAIL:
-//     case UPDATE_PASSWORD_FAIL:
-//       // case UPDATE_USER_FAIL:
-//       // case DELETE_USER_FAIL:
-//       return {
-//         ...state,
-//         loading: false,
-//         error: action.payload,
-//       };
-
-//     case UPDATE_PROFILE_RESET:
-//     case UPDATE_PASSWORD_RESET:
-//       // case UPDATE_USER_RESET:
-//       return {
-//         ...state,
-//         isUpdated: false,
-//       };
-
-//     // case DELETE_USER_RESET:
-//     //   return {
-//     //     ...state,
-//     //     isDeleted: false,
-//     //   };
-
-//     case CLEAR_ERRORS:
-//       return {
-//         ...state,
-//         error: null,
-//       };
-
-//     default:
-//       return state;
-//   }
-// };
-
-// export const updateProfileReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case UPDATE_PROFILE_REQUEST:
-//       return { loading: true };
-//     case UPDATE_PROFILE_SUCCESS:
-//       return { loading: false, userInfo: action.payload, success: true };
+//       return { ...state, loading: false, user: action.payload, success: true };
 //     case UPDATE_PROFILE_FAIL:
 //       return { loading: false, error: action.payload };
 

@@ -34,6 +34,7 @@ export const AllProduct = () => {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, resultPerPage, productsCount } =
     productList;
+
   const keyword = params.keyword;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -52,8 +53,6 @@ export const AllProduct = () => {
 
   return (
     <div class="max-w-2xl mx-auto  sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8 bg-white">
-      <MinCatagory />
-
       <div className="flex">
         {/* Sidebar */}
         <div className="flex flex-col gap-2 py-3 text-sm overflow-hidden">
@@ -70,10 +69,10 @@ export const AllProduct = () => {
                 <ExpandMoreIcon sx={{ fontSize: "20px" }} />
               )}
             </div>
-
+            {/* <MinCatagory /> */}
             {categoryToggle && (
               <div className="flex flex-col pb-1">
-                <FormControl>
+                {/* <FormControl>
                   <RadioGroup
                     aria-labelledby="category-radio-buttons-group"
                     onChange={(e) => setCategory(e.target.value)}
@@ -92,7 +91,8 @@ export const AllProduct = () => {
                       />
                     ))}
                   </RadioGroup>
-                </FormControl>
+                </FormControl> */}
+                <MinCatagory />
               </div>
             )}
             {/* <ul className="categoryBox">

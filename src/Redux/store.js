@@ -22,6 +22,7 @@ import {
   orderCreateReducer,
   orderDetailsReducer,
 } from "./Reducers/OrderReducer";
+import { categoryListReducer } from "./Reducers/CategoryReducer";
 const persistConfig = {
   key: "reducer",
   storage: storage,
@@ -30,6 +31,7 @@ const persistConfig = {
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailReducer,
+  categoryList: categoryListReducer,
   createReview: productCreateReviewReducer,
   bannerList: bannerListReducer,
   userLogin: userLoginReducer,
