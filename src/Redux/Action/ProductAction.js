@@ -20,6 +20,7 @@ export const listProduct =
       let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}`;
       if (category) {
         link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&category=${category}`;
+        console.log("TCL: link", link);
       }
       const { data } = await axios.get(
         // `/api/v1/products?keyword=${keyword}&page=${currentPage}`
@@ -27,9 +28,13 @@ export const listProduct =
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
       dispatch({
-        type: PRODUCT_LIST_FAIL,
-        payload: error.response.data.message,
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload: message,
       });
     }
   };

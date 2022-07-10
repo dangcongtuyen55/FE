@@ -17,24 +17,34 @@ import Slider from "@mui/material/Slider";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import StarIcon from "@mui/icons-material/Star";
+import { listCategory } from "../../Redux/Action/CategoryAction";
 // import { categories } from "../../utils/constants";
 
-const categories = [
-  "Sách hay",
-  "Sách kỹ năng sống",
-  "Laptops",
-  "Sach",
-  "Appliances",
-  "Home",
-];
+// const categories = [
+//   "Truyện",
+//   "Tiểu thuyết",
+//   "Laptops",
+//   "Sach",
+//   "Appliances",
+//   "Home",
+// ];
 export const AllProduct = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const location = useLocation();
+  // const categoryList = useSelector((state) => state.categoryList);
+  // const categories = categoryList;
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
+  console.log("TCL: AllProduct -> categories", categories);
+  console.log("categoriesID", categories._id);
+
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, resultPerPage, productsCount } =
     productList;
-
+  useEffect(() => {
+    dispatch(listCategory());
+  }, [dispatch]);
   const keyword = params.keyword;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -70,31 +80,44 @@ export const AllProduct = () => {
               )}
             </div>
             {/* <MinCatagory /> */}
-            {categoryToggle && (
-              <div className="flex flex-col pb-1">
-                {/* <FormControl>
-                  <RadioGroup
-                    aria-labelledby="category-radio-buttons-group"
-                    onChange={(e) => setCategory(e.target.value)}
-                    name="category-radio-buttons"
-                    value={category}
-                  >
-                    {categories.map((el, i) => (
-                      <FormControlLabel
-                        value={el}
-                        control={<Radio size="small" />}
-                        label={
-                          <span className="text-sm" key={i}>
-                            {el}
-                          </span>
-                        }
-                      />
-                    ))}
-                  </RadioGroup>
-                </FormControl> */}
-                <MinCatagory />
+            <div className="flex flex-col border-b px-4">
+              <div
+                className="flex justify-between cursor-pointer py-2 pb-4 items-center"
+                onClick={() => setCategoryToggle(!categoryToggle)}
+              >
+                <p className="font-medium text-xs uppercase">Category</p>
+                {categoryToggle ? (
+                  <ExpandLessIcon sx={{ fontSize: "20px" }} />
+                ) : (
+                  <ExpandMoreIcon sx={{ fontSize: "20px" }} />
+                )}
               </div>
-            )}
+              {categoryToggle && (
+                <div className="flex flex-col pb-1">
+                  <FormControl>
+                    <RadioGroup
+                      aria-labelledby="category-radio-buttons-group"
+                      onChange={(e) => setCategory(e.target.value)}
+                      name="category-radio-buttons"
+                      value={category}
+                    >
+                      {categories.map((item) => (
+                        <FormControlLabel
+                          value={item._id}
+                          control={<Radio size="small" />}
+                          label={
+                            <span className="text-sm" key={item._id}>
+                              {item.name}
+                            </span>
+                          }
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+              )}
+            </div>
+            {/* <MinCatagory /> */}
             {/* <ul className="categoryBox">
               {categories.map((category) => (
                 // <li
