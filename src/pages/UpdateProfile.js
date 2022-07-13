@@ -21,9 +21,7 @@ export const UpdateProfile = () => {
   const [email, setEmail] = useState("");
   const updateProfileHandler = (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.set("name", name);
-    // formData.set("email", email);
+
     dispatch(updateProfile(name, email));
     // console.log("TCL: updateProfileHandler -> formData", formData);
   };

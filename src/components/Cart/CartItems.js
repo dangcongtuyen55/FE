@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/Action/CartAction";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function CartItems({ item, deleteItemFromCart }) {
   const dispatch = useDispatch();
@@ -27,13 +28,15 @@ export default function CartItems({ item, deleteItemFromCart }) {
       <div className="w-20">
         <img className="h-24" src={item.product_url} alt="" />
       </div>
-      <div className="flex flex-col justify-between ml-4 flex-grow">
+      <div className="flex flex-col justify-between ml-4">
         <span className="font-bold text-sm">{item.name}</span>
         <span className="text-red-500 text-xs">
           {/* {item.current_price ? item.current_price : item.original_price} */}
         </span>
 
-        <button onClick={() => deleteItemFromCart(item.product)}>Remove</button>
+        <button onClick={() => deleteItemFromCart(item.product)}>
+          <DeleteIcon style={{ color: "red" }} />
+        </button>
       </div>
     </div>
   );

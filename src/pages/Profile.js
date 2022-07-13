@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetail } from "../Redux/Action/UserAction";
+import { getUserDetail, loadUser } from "../Redux/Action/UserAction";
 import { Link } from "react-router-dom";
 import { SidebarProfile } from "./SidebarProfile";
 import EditIcon from "@mui/icons-material/Edit";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
+  const { user } = useSelector((state) => state.userLogin);
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { order } = useSelector((state) => state.orderDetails);
-  const { user } = userLogin;
+  // const { user } = userLogin;
+  const { userDetail } = useSelector((state) => state.userDetail);
 
-  // useEffect(() => {
-  //   dispatch(getUserDetail("profile"));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
 
   return (
     <>

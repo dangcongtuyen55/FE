@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getOrderDetails } from "../../Redux/Action/OrderAction";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import PriorityHighOutlinedIcon from "@mui/icons-material/PriorityHighOutlined";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 import "./OrderDetail.scss";
 // import Moment from "react-moment";
@@ -10,6 +12,7 @@ import moment from "moment";
 import "moment/locale/vi";
 import HomeIcon from "@mui/icons-material/Home";
 import PhoneIcon from "@mui/icons-material/Phone";
+import { Alert } from "@mui/material";
 
 export const OrderDetail = () => {
   // const dispatch = useDispatch();
@@ -67,12 +70,34 @@ export const OrderDetail = () => {
                   </>
                 ))}
             </div>
-            <div className="flex justify-start item-start space-y-2 flex-col bg-white w-full ">
+            <div className="flex justify-content item-start space-y-2 flex-col   bg-white w-full ">
               <span className="text-xs  font-semibold leading-7 lg:leading-9  text-gray-800 ml-5">
                 Đơn hàng #{order && order._id}
               </span>
               <p className="text-xs font-medium leading-6 text-gray-600 ml-5">
                 Đặt ngày: {moment(date).format("lll")}
+              </p>
+              <p className="text-xs font-medium leading-6 text-gray-600 ml-5">
+                Trang thái:
+                {order && order.isDelivered ? (
+                  <>
+                    <span className="text-xs font-bold text-green-600">
+                      <CheckCircleOutlineIcon
+                        style={{ color: "text-green-600" }}
+                      />
+                      Đã chuyển
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-xs font-bold text-red-600">
+                      <PriorityHighOutlinedIcon
+                        style={{ color: "text-red-600", fontSize: "15px" }}
+                      />
+                      Chưa chuyển
+                    </span>
+                  </>
+                )}
               </p>
             </div>
             <div className="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
@@ -119,12 +144,12 @@ export const OrderDetail = () => {
                   <div className="flex justify-center items-center space-x-4 ">
                     <div className="flex flex-col justify-start">
                       <span className="font-normal mb-1">
-                        <HomeIcon sx={{ fontSize: 30, color: "red" }} />{" "}
+                        <HomeIcon sx={{ fontSize: 30, color: "red" }} />
                         {order && order.shippingInfo.address}
                       </span>
                       <br />
                       <span className="font-normal ">
-                        <PhoneIcon sx={{ fontSize: 30, color: "red" }} />{" "}
+                        <PhoneIcon sx={{ fontSize: 30, color: "red" }} />
                         {order && order.shippingInfo.phone}
                       </span>
                     </div>

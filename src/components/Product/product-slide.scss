@@ -1,16 +1,20 @@
-.swiper-button-prev{
-    left: 0;
-    color: #000000;
-    --swiper-navigation-size:30px
+.swiper-button-prev {
+  left: 0;
+  color: red;
+  background-color: black;
+  border-radius: 10%;
+  --swiper-navigation-size: 30px;
 }
-.swiper-button-next{
-    right: 0;
-    color: #000000;
-    --swiper-navigation-size:30px
+.swiper-button-next {
+  right: 0;
+  color: red;
+  background-color: black;
+  border-radius: 10%;
+  --swiper-navigation-size: 30px;
 }
-.silder .swiper-wrapper{
-        border: 1px solid #fff;
-    }
-.product-list .swiper-slide{
-        width: 200px;
-    }
+.silder .swiper-wrapper {
+  border: 1px solid #fff;
+}
+.product-list .swiper-slide {
+  width: 200px;
+}

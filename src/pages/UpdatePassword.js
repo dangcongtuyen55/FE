@@ -15,25 +15,27 @@ export const UpdatePassword = () => {
 
   const updatePasswordSubmit = (e) => {
     e.preventDefault();
+
     // const myForm = new FormData();
 
     // myForm.set("oldPassword", oldPassword);
     // myForm.set("newPassword", newPassword);
     // myForm.set("confirmPassword", confirmPassword);
+
     dispatch(updatePassword(oldPassword, newPassword, confirmPassword));
   };
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      alert("lỗi");
     }
 
     if (isUpdated) {
       alert("Updated Password Successfully");
       navigate("/profile");
-      dispatch({
-        type: UPDATE_PASSWORD_RESET,
-      });
+      // dispatch({
+      //   type: UPDATE_PASSWORD_RESET,
+      // });
     }
   }, [dispatch, error, navigate, isUpdated]);
 

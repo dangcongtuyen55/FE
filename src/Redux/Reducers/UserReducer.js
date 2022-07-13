@@ -56,9 +56,9 @@ export const userRegisterReducer = (state = {}, action) => {
 export const userDetailReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAIL_REQUEST:
-      return { ...state, loading: true };
+      return { loading: true };
     case USER_DETAIL_SUCCESS:
-      return { ...state, loading: false, isUpdated: action.payload };
+      return { ...state, loading: false, user: action.payload };
     case USER_DETAIL_FAIL:
       return { loading: false, error: action.payload };
     case USER_DETAIL_RESET:
@@ -96,8 +96,8 @@ export const updatePasswordReducer = (state = { user: {} }, action) => {
 //   }
 // };
 
-export const profileReducer = (state = {}, { type, payload }) => {
-  switch (type) {
+export const profileReducer = (state = {}, action) => {
+  switch (action.type) {
     case UPDATE_PROFILE_REQUEST:
     case UPDATE_PASSWORD_REQUEST:
     case UPDATE_USER_REQUEST:
@@ -111,7 +111,7 @@ export const profileReducer = (state = {}, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        isUpdated: payload,
+        isUpdated: action.type,
       };
 
     case UPDATE_PROFILE_FAIL:
@@ -120,7 +120,7 @@ export const profileReducer = (state = {}, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload,
+        error: action.type,
       };
     case UPDATE_PROFILE_RESET:
     case UPDATE_PASSWORD_RESET:

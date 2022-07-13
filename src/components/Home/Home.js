@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div>
       <BannerLayout />
-      <ProductLayout />
+      {/* <ProductLayout /> */}
       <LayoutSilder />
       {/* <SliderProduct /> */}
       {/* <AllProduct keyword={keyword} /> */}

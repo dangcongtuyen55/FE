@@ -20,7 +20,7 @@ export const MyOrder = () => {
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivery"
+        return params.getValue(params.id, "status") === "Đã chuyển"
           ? "greenColor"
           : "redColor";
       },
@@ -64,7 +64,12 @@ export const MyOrder = () => {
       rows.push({
         itemsQty: item.orderItems.length,
         id: item._id,
-        status: item.orderStatus,
+        status: item.isConfirmed
+          ? item.isDelivered
+            ? "Đã chuyển"
+            : "Chưa chuyển"
+          : "Chưa xác nhận",
+
         amount: item.Amount,
       });
     });

@@ -11,6 +11,7 @@ import {
 import { bannerListReducer } from "./Reducers/BannerReducer";
 import {
   profileReducer,
+  updatePasswordReducer,
   updateProfileReducer,
   userDetailReducer,
   userLoginReducer,
@@ -38,6 +39,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetail: userDetailReducer,
   profile: profileReducer,
+  updatePassword: updatePasswordReducer,
   // updateProfile: updateProfileReducer,
   cart: cartReducer,
   orderCreate: orderCreateReducer,
@@ -50,7 +52,7 @@ const cartItemsFromLocalStorage = localStorage.getItem("cartItems")
   : [];
 const userFromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
-  : {};
+  : null;
 const shippingInfoFromLocalStorage = localStorage.getItem("shippingInfo")
   ? JSON.parse(localStorage.getItem("shippingInfo"))
   : {};

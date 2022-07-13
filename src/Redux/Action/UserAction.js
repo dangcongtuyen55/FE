@@ -100,7 +100,7 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const getUserDetail = (id) => async (dispatch, getState) => {
+export const getUserDetail = () => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DETAIL_REQUEST });
     const {
@@ -113,7 +113,7 @@ export const getUserDetail = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/v1/auth/me/${id}`, config);
+    const { data } = await axios.get(`/api/v1/auth/me`, config);
     dispatch({ type: USER_DETAIL_SUCCESS, payload: data.user });
   } catch (error) {
     const message =
@@ -201,8 +201,8 @@ export const updateProfile = (name, email) => async (dispatch, getState) => {
     // console.log("TCL: updateProfile -> userData", userData);
     console.log("TCL: updateProfile -> data", data);
 
-    dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.user });
-    console.log("TCL: updateProfile -> data.userData", data.userData);
+    dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
+    // console.log("TCL: updateProfile -> data.userData", data.userData);
   } catch (error) {
     dispatch({
       type: UPDATE_PROFILE_FAIL,
@@ -213,33 +213,61 @@ export const updateProfile = (name, email) => async (dispatch, getState) => {
 
 export const updatePassword =
   (oldPassword, newPassword, confirmPassword) => async (dispatch, getState) => {
+    // try {
+    //   dispatch({ type: UPDATE_PASSWORD_REQUEST });
+    //   const {
+    //     userLogin: { user },
+    //   } = getState();
+    //   console.log("TCL: user", user);
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${user.token}`,
+    //     },
+    //   };
+    //   const { data } = await axios.post(
+    //     `/api/v1/auth/password/update`,
+    //     oldPassword,
+    //     newPassword,
+    //     confirmPassword,
+    //     config
+    //   );
+    //   dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
+    // } catch (error) {
+    //   const message =
+    //     error.response && error.response.data.message
+    //       ? error.response.data.message
+    //       : error.message;
+    //   dispatch({
+    //     type: UPDATE_PASSWORD_FAIL,
+    //     payload: message,
+    //   });
+    // }
     try {
       dispatch({ type: UPDATE_PASSWORD_REQUEST });
       const {
         userLogin: { user },
       } = getState();
+      console.log("TCL: user", user);
       const config = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
       };
+      // const config = { headers: { "Content-Type": "application/json" } };
+
       const { data } = await axios.post(
         `/api/v1/auth/password/update`,
-        oldPassword,
-        newPassword,
-        confirmPassword,
+        { oldPassword, newPassword, confirmPassword },
         config
       );
+
       dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
     } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
       dispatch({
         type: UPDATE_PASSWORD_FAIL,
-        payload: message,
+        payload: error.response.data.message,
       });
     }
   };
