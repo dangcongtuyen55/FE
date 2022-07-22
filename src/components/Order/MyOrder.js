@@ -51,7 +51,9 @@ export const MyOrder = () => {
       renderCell: (params) => {
         return (
           <Link to={`/order/${params.getValue(params.id, "id")}`}>
-            <RemoveRedEyeIcon />
+            <span className="hover:text-sky-400">
+              <RemoveRedEyeIcon />
+            </span>
           </Link>
         );
       },
@@ -87,7 +89,7 @@ export const MyOrder = () => {
          
         </>
       )} */}
-      <div className="text-2xl ml-5">Đơn hàng của {user.userName}</div>
+      <div className="text-2xl ml-5">Đơn hàng của {user.name}</div>
       <DataGrid
         columns={columns}
         rows={rows}

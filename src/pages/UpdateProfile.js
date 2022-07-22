@@ -15,6 +15,7 @@ export const UpdateProfile = () => {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.userLogin);
+  console.log("TCL: UpdateProfile -> user", user);
   const { error, isUpdated, loading } = useSelector((state) => state.profile);
 
   const [name, setName] = useState("");
@@ -23,6 +24,8 @@ export const UpdateProfile = () => {
     e.preventDefault();
 
     dispatch(updateProfile(name, email));
+    console.log("TCL: updateProfileHandler -> email", email);
+    console.log("TCL: updateProfileHandler -> name", name);
     // console.log("TCL: updateProfileHandler -> formData", formData);
   };
   useEffect(() => {

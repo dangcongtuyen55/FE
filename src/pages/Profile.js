@@ -12,6 +12,7 @@ const Profile = () => {
   const { order } = useSelector((state) => state.orderDetails);
   // const { user } = userLogin;
   const { userDetail } = useSelector((state) => state.userDetail);
+  console.log("TCL: Profile -> userDetail", userDetail?.user?.name);
 
   useEffect(() => {
     dispatch(loadUser());
@@ -62,7 +63,7 @@ const Profile = () => {
                   </p>
                 </div>
 
-                <div className="rounded border-gray-300  dark:border-gray-700 border-dashed border-2 h-[150px]" />
+                <div className="rounded border-gray-300  dark:border-gray-700 border-dashed border-2 h-[150px]"></div>
               </div>
             </div>
             {/* <!-- edit info container --> */}

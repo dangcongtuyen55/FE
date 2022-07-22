@@ -5,6 +5,7 @@ import { getOrderDetails } from "../../Redux/Action/OrderAction";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import PriorityHighOutlinedIcon from "@mui/icons-material/PriorityHighOutlined";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import "./OrderDetail.scss";
 // import Moment from "react-moment";
@@ -37,6 +38,11 @@ export const OrderDetail = () => {
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
+              <div className="mb-5">
+                <Link to="/orders">
+                  <ArrowBackIcon /> Quay lại
+                </Link>
+              </div>
               <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">
                 Danh sách sản phẩm
               </p>
@@ -79,7 +85,7 @@ export const OrderDetail = () => {
               </p>
               <p className="text-xs font-medium leading-6 text-gray-600 ml-5">
                 Trang thái:
-                {order && order.isDelivered ? (
+                {/* {order && order.isDelivered ? (
                   <>
                     <span className="text-xs font-bold text-green-600">
                       <CheckCircleOutlineIcon
@@ -97,21 +103,45 @@ export const OrderDetail = () => {
                       Chưa chuyển
                     </span>
                   </>
+                )} */}
+                {order && order.isConfirmed ? (
+                  order && order.isDelivered ? (
+                    <span className="text-xs font-bold text-green-600">
+                      <CheckCircleOutlineIcon
+                        style={{ color: "text-green-600" }}
+                      />
+                      Đã chuyển
+                    </span>
+                  ) : (
+                    <span className="text-xs font-bold text-red-600">
+                      <PriorityHighOutlinedIcon
+                        style={{ color: "text-red-600", fontSize: "15px" }}
+                      />
+                      Chưa chuyển
+                    </span>
+                  )
+                ) : (
+                  <span className="text-xs font-bold text-red-600">
+                    <PriorityHighOutlinedIcon
+                      style={{ color: "text-red-600", fontSize: "15px" }}
+                    />
+                    Chưa xác nhận
+                  </span>
                 )}
               </p>
             </div>
             <div className="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
               <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6   ">
-                <h3 className="text-xl font-semibold leading-5 text-gray-800">
+                {/* <h3 className="text-xl font-semibold leading-5 text-gray-800">
                   Summary
-                </h3>
+                </h3> */}
                 <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
                   <div className="flex justify-between  w-full">
                     <p className="text-base leading-4 text-gray-800">
                       Tổng tiền ({order && order.orderItems.length} sản phẩm)
                     </p>
                     <p className="text-base leading-4 text-gray-600">
-                      {`${order && order.Subtotal} ₫`}
+                      {`${order && order.Subtotal.toLocaleString()} ₫`}
                     </p>
                   </div>
                   <div className="flex justify-between items-center w-full">
@@ -119,7 +149,7 @@ export const OrderDetail = () => {
                       Phí vận chuyển
                     </p>
                     <p className="text-base leading-4 text-gray-600">
-                      {`${order && order.shippingFee} ₫`}
+                      {`${order && order.shippingFee.toLocaleString()} ₫`}
                     </p>
                   </div>
                   {/* <div className="flex justify-between items-center w-full">
@@ -132,7 +162,7 @@ export const OrderDetail = () => {
                     Tổng cộng
                   </p>
                   <p className="text-base font-semibold leading-4 text-gray-600">
-                    {`${order && order.Amount} ₫`}
+                    {`${order && order.Amount.toLocaleString()} ₫`}
                   </p>
                 </div>
               </div>
@@ -144,12 +174,12 @@ export const OrderDetail = () => {
                   <div className="flex justify-center items-center space-x-4 ">
                     <div className="flex flex-col justify-start">
                       <span className="font-normal mb-1">
-                        <HomeIcon sx={{ fontSize: 30, color: "red" }} />
+                        <HomeIcon sx={{ fontSize: 30 }} />
                         {order && order.shippingInfo.address}
                       </span>
                       <br />
                       <span className="font-normal ">
-                        <PhoneIcon sx={{ fontSize: 30, color: "red" }} />
+                        <PhoneIcon sx={{ fontSize: 30 }} />
                         {order && order.shippingInfo.phone}
                       </span>
                     </div>

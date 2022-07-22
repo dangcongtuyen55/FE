@@ -7,7 +7,10 @@ import { Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { listProduct } from "../../Redux/Action/ProductAction";
+import {
+  listProduct,
+  litsProductInSlide,
+} from "../../Redux/Action/ProductAction";
 import { listCategory } from "../../Redux/Action/CategoryAction";
 import { ItemCard } from "./ItemCard";
 import ProductCard from "./ProductCard";
@@ -16,9 +19,11 @@ export const SliderProduct = () => {
   const params = useParams();
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
-  console.log("TCL: SliderProduct -> products", products && products.name);
+  // const productList = useSelector((state) => state.productList);
+  // const { loading, error, products } = productList;
+  const allProducts = useSelector((state) => state.allProducts);
+  const { products } = allProducts;
+  // console.log("TCL: SliderProduct -> products", products && products.name);
 
   const keyword = params.keyword;
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,13 +33,15 @@ export const SliderProduct = () => {
     dispatch(listCategory());
   }, [dispatch]);
   useEffect(() => {
-    dispatch(listProduct());
+    dispatch(litsProductInSlide());
   }, [dispatch]);
   return (
     <div className="product-list">
       {categories.map((data) => (
         <>
-          <span className="bg-red-600">{data.name}</span>
+          <div className="flex justify-between items-center bg-teal-400 w-full h-10 rounded-lg mb-2 mt-2">
+            <span className="ml-2 font-bold">{data.name}</span>
+          </div>
 
           <Swiper
             grabCursor={"true"}

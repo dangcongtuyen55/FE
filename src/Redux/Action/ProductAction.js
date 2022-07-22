@@ -9,6 +9,9 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  SLIDER_PRODUCTS_FAIL,
+  SLIDER_PRODUCTS_REQUEST,
+  SLIDER_PRODUCTS_SUCCESS,
 } from "../Constants/ProductConstant";
 
 //LIST PRODUCT
@@ -38,6 +41,30 @@ export const listProduct =
       });
     }
   };
+
+//PRODUCT IN SLIDE
+export const litsProductInSlide = () => async (dispatch) => {
+  try {
+    dispatch({ type: SLIDER_PRODUCTS_REQUEST });
+
+    const { data } = await axios.get("/api/v1/products/slide");
+    console.log("TCL: litsProductInSlide -> data", data);
+
+    dispatch({
+      type: SLIDER_PRODUCTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: SLIDER_PRODUCTS_FAIL,
+      payload: message,
+    });
+  }
+};
 
 //PRODUCT DETAIL
 export const litsProductDetail = (id) => async (dispatch) => {

@@ -74,7 +74,7 @@ const ProductCard = ({ product }) => {
             </p>
             <div className="flex items-center justify-between text-sm opacity-50  text-black">
               <p className="text-sm font-medium text-gray-900">
-                {product.price}
+                {`${product.price.toLocaleString()} ₫`}
               </p>
               <p>({product.numOfReviews} nhận xét)</p>
             </div>

@@ -6,6 +6,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productCreateReviewReducer,
   productDetailReducer,
+  productListInSildeReducer,
   productListReducer,
 } from "./Reducers/ProductReducer";
 import { bannerListReducer } from "./Reducers/BannerReducer";
@@ -24,6 +25,7 @@ import {
   orderDetailsReducer,
 } from "./Reducers/OrderReducer";
 import { categoryListReducer } from "./Reducers/CategoryReducer";
+import { favoriteReducer } from "./Reducers/FavoriteReducer";
 const persistConfig = {
   key: "reducer",
   storage: storage,
@@ -31,6 +33,7 @@ const persistConfig = {
 };
 const reducer = combineReducers({
   productList: productListReducer,
+  allProducts: productListInSildeReducer,
   productDetails: productDetailReducer,
   categoryList: categoryListReducer,
   createReview: productCreateReviewReducer,
@@ -45,10 +48,14 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   myOrder: myOrdersReducer,
   orderDetails: orderDetailsReducer,
+  favorite: favoriteReducer,
 });
 
 const cartItemsFromLocalStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
+  : [];
+const favoriteItemFromLocalStorage = localStorage.getItem("favoriteItems")
+  ? JSON.parse(localStorage.getItem("favoriteItems"))
   : [];
 const userFromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
@@ -61,6 +68,9 @@ const initialState = {
   cart: {
     cartItems: cartItemsFromLocalStorage,
     shippingInfo: shippingInfoFromLocalStorage,
+  },
+  favorite: {
+    favoriteItems: favoriteItemFromLocalStorage,
   },
 
   userLogin: { user: userFromLocalStorage },

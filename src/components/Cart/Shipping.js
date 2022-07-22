@@ -88,7 +88,7 @@ export const Shipping = () => {
                 className="rounded-full border border-slate-300 hover:border-pink-700"
                 type="submit"
               >
-                Đăng nhập
+                Tiếp theo
               </button>
             </div>
           </form>

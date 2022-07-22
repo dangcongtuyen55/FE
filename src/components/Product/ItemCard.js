@@ -1,16 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
-import {
-  CarouselProvider,
-  Slider,
-  Slide,
-  ButtonBack,
-  ButtonNext,
-} from "pure-react-carousel";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import "pure-react-carousel/dist/react-carousel.es.css";
+import {
+  addFavoriteItemsToCart,
+  deleteFavoriteItemsToCart,
+} from "../../Redux/Action/FavoriteAction";
 
 export const ItemCard = ({ item }) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   const options = {
     edit: false,
     color: "rgba(168, 168, 168)",
@@ -19,24 +22,29 @@ export const ItemCard = ({ item }) => {
     value: item.rating,
     isHalf: true,
   };
+
+  const { favoriteItems } = useSelector((state) => state.favorite);
+
+  // const { id } = useParams();
+  const productId = item._id;
+  console.log("TCL: ItemCard -> productId", productId);
+  const itemFavorite = favoriteItems.some((i) => i.product === productId);
+  const addToWishlistHandler = () => {
+    if (itemFavorite) {
+      dispatch(deleteFavoriteItemsToCart(productId));
+      enqueueSnackbar("Đã xóa sản phẩm khỏi danh sách yêu thích", {
+        variant: "success",
+      });
+      // toast.success("Đã xóa khỏi danh sách yêu thích");
+    } else {
+      dispatch(addFavoriteItemsToCart(productId));
+      enqueueSnackbar("Đã thêm sản phẩm vào danh sách yêu thích", {
+        variant: "success",
+      });
+      // toast.success("Đã thêm vào danh sách yêu thích");
+    }
+  };
   return (
-    // <div className="flex flex-shrink-0 relative w-full sm:w-auto">
-    //   <img
-    //     src={item.product_url}
-    //     alt="black chair and white table"
-    //     className="object-cover object-center w-full"
-    //   />
-    //   <div className="bg-gray-800 bg-opacity-30 absolute w-full h-full p-6">
-    //     <h2 className="lg:text-xl leading-4 text-base lg:leading-5 text-white">
-    //       {item.name}
-    //     </h2>
-    //     <div className="flex h-full items-end pb-6">
-    //       <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-    //         {item.price}
-    //       </h3>
-    //     </div>
-    //   </div>
-    // </div>
     <>
       <div className="product-card w-[150px] h-[220px]  rounded-lg p-5 bg-slate-200 text-black">
         <div>
@@ -57,7 +65,17 @@ export const ItemCard = ({ item }) => {
             {item.name}
           </h3>
           <div className="flex items-center justify-between text-xs opacity-50 mb-2 text-black">
-            {item.price}
+            {`${item.price?.toLocaleString()} ₫`}
+            <span
+              onClick={addToWishlistHandler}
+              className={`${
+                itemFavorite
+                  ? "text-red-500"
+                  : "hover:text-red-500 text-gray-300"
+              } cursor-pointer`}
+            >
+              <FavoriteIcon sx={{ fontSize: "18px" }} />
+            </span>
           </div>
           <div className="flex items-center justify-between text-xs opacity-50  text-black">
             <ReactStars {...options} />

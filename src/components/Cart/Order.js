@@ -93,14 +93,14 @@ export const Order = () => {
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
                       <p className="text-base xl:text-lg leading-6">
-                        {`₫${item.price}`}
+                        {`${item.price.toLocaleString()} ₫`}
                       </p>
 
                       <p className="text-base xl:text-lg leading-6 text-gray-800">
                         {item.quantity}
                       </p>
                       <p className="text-base xl:text-lg font-semibold leading-6 text-gray-800">
-                        {item.quantity * item.price}
+                        {`${(item.quantity * item.price).toLocaleString()} ₫`}
                       </p>
                     </div>
                   </div>
@@ -109,16 +109,16 @@ export const Order = () => {
             </div>
             <div className="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
               <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6   ">
-                <h3 className="text-xl font-semibold leading-5 text-gray-800">
+                {/* <h3 className="text-xl font-semibold leading-5 text-gray-800">
                   Summary
-                </h3>
+                </h3> */}
                 <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
                   <div className="flex justify-between  w-full">
                     <p className="text-base leading-4 text-gray-800">
                       Thành tiền
                     </p>
                     <p className="text-base leading-4 text-gray-600">
-                      {Subtotal}
+                      {`${Subtotal.toLocaleString()} ₫`}
                     </p>
                   </div>
                   <div className="flex justify-between items-center w-full">
@@ -139,9 +139,9 @@ export const Order = () => {
                       {(() => {
                         switch (promotionCode) {
                           case "5%SALE":
-                            return taxCode5;
+                            return `${taxCode5.toLocaleString()}₫`;
                           case "10%SALE":
-                            return taxCode10;
+                            return `${taxCode10.toLocaleString()}₫`;
                           // case "":  return 0;
                           default:
                             return 0;
@@ -157,7 +157,7 @@ export const Order = () => {
                       </span>
                     </p>
                     <p className="text-base leading-4 text-gray-600">
-                      {shippingFee}
+                      {`${shippingFee.toLocaleString()} ₫`}
                     </p>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ export const Order = () => {
                     Tổng tiền thanh toán
                   </p>
                   <p className="text-base font-semibold leading-4 text-gray-600">
-                    {Amount}
+                    {`${Amount.toLocaleString()} ₫`}
                   </p>
                 </div>
               </div>

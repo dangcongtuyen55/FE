@@ -9,6 +9,9 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  SLIDER_PRODUCTS_FAIL,
+  SLIDER_PRODUCTS_REQUEST,
+  SLIDER_PRODUCTS_SUCCESS,
 } from "./../Constants/ProductConstant";
 
 //PRODUCT LIST
@@ -25,6 +28,22 @@ export const productListReducer = (state = { products: [] }, action) => {
         filteredProductsCount: action.payload.filteredProductsCount,
       };
     case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+export const productListInSildeReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case SLIDER_PRODUCTS_REQUEST:
+      return { loading: true, products: [] };
+    case SLIDER_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload.products,
+      };
+    case SLIDER_PRODUCTS_FAIL:
       return { loading: false, error: action.payload };
 
     default:

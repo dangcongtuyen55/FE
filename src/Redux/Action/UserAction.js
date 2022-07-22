@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  CLEAR_ERRORS,
   UPDATE_PASSWORD_FAIL,
   UPDATE_PASSWORD_REQUEST,
   UPDATE_PASSWORD_SUCCESS,
@@ -90,8 +91,8 @@ export const register = (name, email, password) => async (dispatch) => {
       config
     );
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-    localStorage.setItem("user", JSON.stringify(data));
+    // dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    // localStorage.setItem("user", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
@@ -143,42 +144,12 @@ export const loadUser = () => async (dispatch, getState) => {
     const { data } = await axios.get(`/api/v1/auth/me`, config);
 
     dispatch({ type: USER_DETAIL_SUCCESS, payload: data.user });
+    // localStorage.getItem("user", JSON.stringify(data));
   } catch (error) {
     dispatch({ type: USER_DETAIL_FAIL, payload: error.response.data.message });
   }
 };
 
-// export const updateProfile = (userData) => async (dispatch, getState) => {
-//   try {
-//     dispatch({ type: UPDATE_PROFILE_REQUEST });
-
-//     const {
-//       userLogin: { user },
-//     } = getState();
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${user.token}`,
-//       },
-//     };
-
-//     const { data } = await axios.put(
-//       `/api/v1/auth/me/update/profile`,
-//       userData,
-//       config
-//     );
-
-//     localStorage.setItem("user", JSON.stringify(data));
-
-//     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data });
-//     // localStorage.setItem("userLogin", JSON.stringify(data));
-//   } catch (error) {
-//     dispatch({
-//       type: UPDATE_PROFILE_FAIL,
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
 export const updateProfile = (name, email) => async (dispatch, getState) => {
   try {
     dispatch({ type: UPDATE_PROFILE_REQUEST });
@@ -188,7 +159,7 @@ export const updateProfile = (name, email) => async (dispatch, getState) => {
     } = getState();
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
     };
@@ -198,10 +169,15 @@ export const updateProfile = (name, email) => async (dispatch, getState) => {
       { name, email },
       config
     );
+    console.log("TCL: updateProfile -> email", email);
+    console.log("TCL: updateProfile -> name", name);
     // console.log("TCL: updateProfile -> userData", userData);
     console.log("TCL: updateProfile -> data", data);
 
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
+    // dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    // localStorage.setItem("user", JSON.stringify(data));
+    console.log("TCL: updateProfile -> data", data);
     // console.log("TCL: updateProfile -> data.userData", data.userData);
   } catch (error) {
     dispatch({
@@ -292,3 +268,7 @@ export const updatePassword =
 //     });
 //   }
 // };
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
+};

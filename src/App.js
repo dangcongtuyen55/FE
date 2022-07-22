@@ -29,6 +29,7 @@ import { Search } from "./components/Product/Search";
 import { UpdatePassword } from "./pages/UpdatePassword";
 import { UpdateProfile } from "./pages/UpdateProfile";
 import { ItemCard } from "./components/Product/ItemCard";
+import { Favorites } from "./components/Favorite/Favorites";
 
 const App = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -63,7 +64,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/orders" element={<MyOrder />} />
           <Route path="/order/:id" element={<OrderDetail />} />
-          <Route path="item" element={<ItemCard />} />
+          <Route path="/favorites" element={<Favorites />} />
 
           <Route path="*" element={<Error />} />
         </Routes>

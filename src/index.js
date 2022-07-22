@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { store, persistor } from "./Redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { SnackbarProvider } from "notistack";
 
 ReactDOM.render(
   // <React.StrictMode>
@@ -13,7 +14,22 @@ ReactDOM.render(
   // </React.StrictMode>
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+      <SnackbarProvider
+        maxSnack={5}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        autoHideDuration={2000}
+        iconVariant={{
+          success: "✅",
+          error: "⚠️",
+          warning: "✖️",
+          info: "ℹ️",
+        }}
+      >
+        <App />
+      </SnackbarProvider>
     </PersistGate>
   </Provider>,
   document.getElementById("root")

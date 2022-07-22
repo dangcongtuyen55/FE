@@ -46,12 +46,14 @@ export default function Cart() {
     navigate("/login?redirect=shipping");
   };
 
+  // const total = cartItems.quantity * cartItems.price;
+
   return (
     <div className="container mx-auto mt-10">
       <div className="flex shadow-md my-10">
         <div className="w-full bg-white px-10 py-10">
           <div className="flex justify-between border-b pb-8">
-            <h1 className="font-semibold text-2xl">Shopping Cart</h1>
+            <h1 className="font-semibold text-2xl">Giỏ hàng</h1>
             <h2 className="font-semibold text-2xl">
               {cartItems.length} sản phẩm
             </h2>
@@ -120,10 +122,10 @@ export default function Cart() {
                     </div>
                   </div>
                   <div className="text-center w-1/5 font-semibold text-sm">
-                    {item.price}
+                    {`${item.price.toLocaleString()} ₫`}
                   </div>
                   <div className="text-center w-1/5 font-semibold text-sm">
-                    {item.quantity * item.price}
+                    {`${(item.quantity * item.price).toLocaleString()} ₫`}
                   </div>
                 </div>
               ))}
@@ -150,10 +152,11 @@ export default function Cart() {
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Tổng tiền thanh toán</span>
               <span>
-                {`₫${cartItems.reduce(
-                  (acc, item) => acc + item.quantity * item.price,
+                {`${cartItems.reduce(
+                  (acc, item) =>
+                    (acc + item.quantity * item.price).toLocaleString(),
                   0
-                )}`}
+                )} ₫`}
 
                 {/* {
                   (cartItems.current_price === 0 || cartItems.current_price ==="")?(subTotalNoPromotion):(subTotalHavePromotion)
